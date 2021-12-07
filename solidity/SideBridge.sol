@@ -3,7 +3,6 @@ pragma solidity ^0.8.0;
 
 import { IERC20Child } from "./IERC20Child.sol";
 
-
 contract SideBridge {
 
     event BridgeInitialized(uint indexed timestamp);

@@ -1,9 +1,9 @@
-const serverUrl = "https://gyj9dvdzmpdo.usemoralis.com:2053/server";
-const appId = "EGGpE2jqRuikBhTUn7d726S2snygJisSCIzpZUNv";
+const serverUrl = "";
+const appId = "";
 Moralis.start({ serverUrl, appId }); 
 
-const mainTokenAddress = "0xcF4798eFDdff14A03F7A8bF300a96e611810ED82";
-const mainBridgeAddress = "0x57561657F3486Dd80A0a8C20a2c32aCFe13C1E8a";
+const mainTokenAddress = "";
+const mainBridgeAddress = "";
 
 login();
 

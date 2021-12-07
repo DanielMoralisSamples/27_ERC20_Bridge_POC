@@ -1,7 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-/* Interface Imports */
+//Remix style import
+//import { ERC20 } from "@openzeppelin/contracts@4.0.0/token/ERC20/IERC20.sol";
+
+//Brownie style import
 import { IERC20 } from "OpenZeppelin/openzeppelin-contracts@4.0.0/contracts/token/ERC20/IERC20.sol";
 
 /// @dev Interface of the child ERC20 token, for use on sidechains and L2 networks.
@@ -31,8 +34,6 @@ interface IERC20Child is IERC20 {
     external;
 
   /**
-   * @notice called by bridge gateway when tokens are withdrawn back to root chain
-   * @dev Should burn recipient's tokens. Sender must have allowance for `accounts`'s tokens of at least `amount`.
    *
    * @param account an address for whom burning is being done
    * @param amount total amount to burn

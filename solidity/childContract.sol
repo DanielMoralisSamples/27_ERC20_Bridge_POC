@@ -2,6 +2,12 @@
 pragma solidity ^0.8.0;
 
 /* Contract Imports */
+
+//Remix style import
+//import { ERC20 } from "@openzeppelin/contracts@4.0.0/token/ERC20/ERC20.sol";
+//import { ERC20Burnable } from "@openzeppelin/contracts@4.0.0/token/ERC20/extensions/ERC20Burnable.sol";
+
+//Brownie style import
 import { ERC20 } from "OpenZeppelin/openzeppelin-contracts@4.0.0/contracts/token/ERC20/ERC20.sol";
 import { ERC20Burnable } from "OpenZeppelin/openzeppelin-contracts@4.0.0/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 

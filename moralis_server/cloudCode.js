@@ -1,11 +1,13 @@
+const logger = Moralis.Cloud.getLogger();
+
 const web3Main = Moralis.web3ByChain("0x4"); // Rinkeby Testnet
 const web3Side = Moralis.web3ByChain("0x13881"); // Mumbai Testnet
 
-const MainBridge_address = "0x57561657F3486Dd80A0a8C20a2c32aCFe13C1E8a";
-const SideBridge_address = "0xcF4798eFDdff14A03F7A8bF300a96e611810ED82";
-const mainToken_address = "0xcF4798eFDdff14A03F7A8bF300a96e611810ED82";
-const childToken_address = "0x57561657F3486Dd80A0a8C20a2c32aCFe13C1E8a";
-const gateway_address = "0x77Ef4472cAc1AAca6B4bB82EA2bc41A6cf876EAf"
+const MainBridge_address = "";
+const SideBridge_address = "";
+const mainToken_address = "";
+const childToken_address = "";
+const gateway_address = ""
 const gatewayKey = "";
 const MainBridge_abi = '[{"inputs": [{"internalType": "address", "name": "_mainToken", "type": "address"}, {"internalType": "address", "name": "_gateway", "type": "address"}], "stateMutability": "nonpayable", "type": "constructor", "name": "constructor"}, {"anonymous": false, "inputs": [{"indexed": true, "internalType": "address", "name": "requester", "type": "address"}, {"indexed": true, "internalType": "bytes32", "name": "mainDepositHash", "type": "bytes32"}, {"indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256"}, {"indexed": false, "internalType": "uint256", "name": "timestamp", "type": "uint256"}], "name": "TokensLocked", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "internalType": "address", "name": "requester", "type": "address"}, {"indexed": true, "internalType": "bytes32", "name": "sideDepositHash", "type": "bytes32"}, {"indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256"}, {"indexed": false, "internalType": "uint256", "name": "timestamp", "type": "uint256"}], "name": "TokensUnlocked", "type": "event"}, {"inputs": [{"internalType": "address", "name": "_requester", "type": "address"}, {"internalType": "uint256", "name": "_bridgedAmount", "type": "uint256"}, {"internalType": "bytes32", "name": "_mainDepositHash", "type": "bytes32"}], "name": "lockTokens", "outputs": [], "stateMutability": "nonpayable", "type": "function"}, {"inputs": [{"internalType": "address", "name": "_requester", "type": "address"}, {"internalType": "uint256", "name": "_bridgedAmount", "type": "uint256"}, {"internalType": "bytes32", "name": "_sideDepositHash", "type": "bytes32"}], "name": "unlockTokens", "outputs": [], "stateMutability": "nonpayable", "type": "function"}]';
 const SideBridge_abi = '[{"inputs": [{"internalType": "address", "name": "_gateway", "type": "address"}], "stateMutability": "nonpayable", "type": "constructor", "name": "constructor"}, {"anonymous": false, "inputs": [{"indexed": true, "internalType": "uint256", "name": "timestamp", "type": "uint256"}], "name": "BridgeInitialized", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "internalType": "address", "name": "requester", "type": "address"}, {"indexed": true, "internalType": "bytes32", "name": "mainDepositHash", "type": "bytes32"}, {"indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256"}, {"indexed": false, "internalType": "uint256", "name": "timestamp", "type": "uint256"}], "name": "TokensBridged", "type": "event"}, {"anonymous": false, "inputs": [{"indexed": true, "internalType": "address", "name": "requester", "type": "address"}, {"indexed": true, "internalType": "bytes32", "name": "sideDepositHash", "type": "bytes32"}, {"indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256"}, {"indexed": false, "internalType": "uint256", "name": "timestamp", "type": "uint256"}], "name": "TokensReturned", "type": "event"}, {"inputs": [{"internalType": "address", "name": "_requester", "type": "address"}, {"internalType": "uint256", "name": "_bridgedAmount", "type": "uint256"}, {"internalType": "bytes32", "name": "_mainDepositHash", "type": "bytes32"}], "name": "bridgeTokens", "outputs": [], "stateMutability": "nonpayable", "type": "function"}, {"inputs": [{"internalType": "address", "name": "_childTokenAddress", "type": "address"}], "name": "initializeBridge", "outputs": [], "stateMutability": "nonpayable", "type": "function"}, {"inputs": [{"internalType": "address", "name": "_requester", "type": "address"}, {"internalType": "uint256", "name": "_bridgedAmount", "type": "uint256"}, {"internalType": "bytes32", "name": "_sideDepositHash", "type": "bytes32"}], "name": "returnTokens", "outputs": [], "stateMutability": "nonpayable", "type": "function"}]';
@@ -28,10 +30,10 @@ Moralis.Cloud.afterSave("EthTokenTransfers", (request) => {
         const gatewayNonce = web3Main.eth.getTransactionCount(gateway_address);
         const transactionBody = {
             to: MainBridge_address,
-              nonce:gatewayNonce,
-              data:functionCall,
-              gas:400000,
-              gasPrice:web3Main.utils.toWei("2", "gwei")
+            nonce:gatewayNonce,
+            data:functionCall,
+            gas:400000,
+            gasPrice:web3Main.utils.toWei("2", "gwei")
         }
         signedTransaction = await web3Main.eth.accounts.signTransaction(transactionBody,gatewayKey);
         logger.info(signedTransaction.transactionHash);
